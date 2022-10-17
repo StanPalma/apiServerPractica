@@ -4,7 +4,7 @@ const sms = require("../database/sms");
 const Usuario = require("../models/usuario");
 
 const usuariosGet = async (req = request, res = response) => {
-  const { limite = 5, desde = 0 } = req.query;
+  const { limite = 20, desde = 0 } = req.query;
 
   // const [total, usuarios] = await Promise.all([
   //   Usuario.countDocuments(),
@@ -24,7 +24,7 @@ const usuariosPost = async (req, res = response) => {
 
   // Guardar en BD
   await usuarios.save();
-  sms.sendSMS(); // Envia el mensaje que se registró
+  sms.sendSMS(usuarios.usuario); // Envia el mensaje que se registró
 
   res.json({
     usuarios,
